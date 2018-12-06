@@ -1,7 +1,7 @@
 /*
  * SinriQF.js
- * Version 1.0+Draft
- * Last Release 2018-12-06
+ * Version 1.0
+ * Released 2018-12-06
  * Copyright 2018 Sinri Edogawa
  * License: GPL-3.0
  *
