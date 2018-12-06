@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickFrontend</title>
+    <script src="https://unpkg.com/axios@0.18.0/dist/axios.js"></script>
+    <script src="https://unpkg.com/js-cookie@2.2.0/src/js.cookie.js"></script>
+    <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/iview/dist/iview.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/iview/dist/styles/iview.css">
+    <script src="SinriQF.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>SinriQF Sample</h1>
+    <p>
+        This simple frontend framework is designed for quick develop with vue.js 2, iview.ui 3, axios, js-cookie.
+    </p>
+    <p>
+        Enjoy!
+    </p>
+    <p>{{description}}</p>
+    <div>
+        Action on Token:
+        <i-button @click="updateCookie">UPDATE</i-button>
+        <i-button @click="removeCookie">REMOVE</i-button>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            description: "",
+        },
+        methods: {
+            show: function () {
+                this.description = "Token name: " + SinriQF.config.TokenName + " in cookie: " + SinriQF.api.getTokenFromCookie() + " updated " + new Date();
+            },
+            updateCookie: function () {
+                SinriQF.cookies.setCookie(SinriQF.config.TokenName, new Date(), (new Date().getTime() / 1000) + 3600);
+                this.show();
+                SinriQF.iview.showInfoNotice("Updated", "Done", 3);
+            },
+            removeCookie: function () {
+                SinriQF.cookies.cleanCookie(SinriQF.config.TokenName);
+                this.show();
+                SinriQF.iview.showInfoNotice("Removed", "Done", 3);
+            }
+        },
+        mounted: function () {
+            SinriQF.config.TokenName = "test_quick_frontend";
+            SinriQF.config.vueInstance = this;
+            this.show();
+        }
+    })
+</script>
+</body>
+</html>
