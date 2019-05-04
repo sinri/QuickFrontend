@@ -9,7 +9,10 @@ The mess of frontend resources and notes.
 ## SinriQF
 A simple frontend framework is designed for quick develop with vue.js 2, iview.ui 3, axios, js-cookie.
 
-CDN-like Source (Latest Version): https://www.everstray.com/cdn/QuickFrontend/SinriQF/dist/SinriQF-1.0.js
+Link from CDN:
+
+* [Latest Version 2.0](https://www.everstray.com/cdn/QuickFrontend/SinriQF/dist/SinriQF-2.0.js)
+* [1.0](https://www.everstray.com/cdn/QuickFrontend/SinriQF/dist/SinriQF-1.0.js)
 
 Usage Sample:
 
