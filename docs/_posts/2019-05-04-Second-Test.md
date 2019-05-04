@@ -1,6 +1,7 @@
 ---
 layout: default
 title: 你好，Markdown
+theme: jekyll-theme-leap-day
 ---
 
 # {{ page.title }}
