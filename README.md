@@ -22,7 +22,7 @@ Usage Sample:
 <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
 <script type="text/javascript" src="https://unpkg.com/iview/dist/iview.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/iview/dist/styles/iview.css">
-<script src="SinriQF.js"></script>
+<script src="https://www.everstray.com/cdn/QuickFrontend/SinriQF/dist/SinriQF-2.0.js"></script>
 ```
 
 ```javascript
@@ -33,8 +33,8 @@ new Vue({
         methods: {
         },
         mounted: function () {
-            SinriQF.config.TokenName = "test_quick_frontend";
-            SinriQF.config.vueInstance = this;
+            SinriQF.config.setTokenName("test_quick_frontend");
+            SinriQF.config.setVueInstance(this);
         }
     })
 ```
