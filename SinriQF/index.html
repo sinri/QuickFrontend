@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
     <script type="text/javascript" src="https://unpkg.com/iview/dist/iview.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/iview/dist/styles/iview.css">
-    <script src="SinriQF.js"></script>
+    <script src="SinriQF-2.js"></script>
 </head>
 <body>
 <div id="app">
@@ -116,7 +116,7 @@
             <Layout>
                 <Affix :offset-top="50">
                     <div style="width:100%;height:auto;max-height: 100vh;overflow-x:hidden;overflow-y: auto">
-                        <h1>SinriQF Sample</h1>
+                        <h1>SinriQF 2 Sample</h1>
                         <p>
                             This simple frontend framework is designed for quick develop with vue.js 2, iview.ui 3,
                             axios,
@@ -227,22 +227,22 @@
         },
         methods: {
             show: function () {
-                this.description = "Token name: " + SinriQF.config.TokenName + " in cookie: " + SinriQF.api.getTokenFromCookie() + " updated " + new Date();
+                this.description = "Token name: " + SinriQF.config.getTokenName() + " in cookie: " + SinriQF.api.getTokenFromCookie() + " updated " + new Date();
             },
             updateCookie: function () {
-                SinriQF.cookies.setCookie(SinriQF.config.TokenName, new Date(), (new Date().getTime() / 1000) + 3600);
+                SinriQF.cookies.setCookie(SinriQF.config.getTokenName(), new Date(), (new Date().getTime() / 1000) + 3600);
                 this.show();
                 SinriQF.iview.showInfoNotice("Updated", "Done", 3);
             },
             removeCookie: function () {
-                SinriQF.cookies.cleanCookie(SinriQF.config.TokenName);
+                SinriQF.cookies.cleanCookie(SinriQF.config.getTokenName());
                 this.show();
                 SinriQF.iview.showInfoNotice("Removed", "Done", 3);
             }
         },
         mounted: function () {
-            SinriQF.config.TokenName = "test_quick_frontend";
-            SinriQF.config.vueInstance = this;
+            SinriQF.config.setTokenName("test_quick_frontend");
+            SinriQF.config.setVueInstance(this);
             this.show();
         }
     })
