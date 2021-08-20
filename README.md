@@ -31,8 +31,12 @@ Or, use My Personal Asset Network:
 <script src="https://www.everstray.com/cdn/QuickFrontend/3rd/axios/0.21.1/axios.min.js"></script>
 <script src="https://www.everstray.com/cdn/QuickFrontend/3rd/js-cookie/3.0.0/js.cookie.min.js"></script>
 <script src="https://www.everstray.com/cdn/QuickFrontend/3rd/vue/2.6.14/vue.min.js"></script>
+<!--
 <script type="text/javascript" src="https://www.everstray.com/cdn/QuickFrontend/3rd/iview/3.5.4/iview.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://www.everstray.com/cdn/QuickFrontend/3rd/iview/3.5.4/styles/iview.css">
+-->
+<script type="text/javascript" src="https://www.everstray.com/cdn/QuickFrontend/3rd/view-design/4.6.1/iview.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://www.everstray.com/cdn/QuickFrontend/3rd/view-design/4.6.1/styles/iview.css">
 <script src="https://www.everstray.com/cdn/QuickFrontend/SinriQF/dist/SinriQF-2.0.js"></script>
 ```
 
