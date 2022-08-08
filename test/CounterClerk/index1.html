@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Counter Clerk Test</title>
+    <script src="./CounterClerk.js"></script>
+</head>
+<body>
+<h1>Counter Clerk Test</h1>
+<div>
+    <h2>Transactions</h2>
+    <div id="history">
+
+    </div>
+    <div>
+        <label for="command_input"></label><input id="command_input"/>
+        <button onclick="sendCommand()">Send</button>
+    </div>
+</div>
+<script>
+    let app = new CounterClerk()
+
+    let history_div = document.getElementById("history")
+
+    app
+        .setCallApiFunction((command) => {
+            return app.xhrKit().postJson("http://localhost:8000/cct", {command: command})
+        })
+        .setShowCommandSentFunction((context) => {
+            const command = context.command
+
+            let d = document.createElement("div")
+
+            let p1 = document.createElement("p")
+            p1.innerText = new Date().toLocaleString() + " sent command"
+            d.appendChild(p1)
+
+            let p2 = document.createElement("pre")
+            p2.innerText = command
+            d.appendChild(p2)
+
+            history_div.appendChild(d)
+
+            context.box = d
+        })
+        .setShowCommandDoneFunction((context, resp) => {
+            let d = context.box
+
+            let p1 = document.createElement("p")
+            p1.innerText = new Date().toLocaleString() + " done"
+            d.appendChild(p1)
+
+            let p2 = document.createElement("pre")
+            p2.innerText = resp
+            d.appendChild(p2)
+        })
+        .setShowCommandErrorFunction((context, error) => {
+            let d = context.box
+
+            let p1 = document.createElement("p")
+            p1.innerText = new Date().toLocaleString() + " error"
+            d.appendChild(p1)
+
+            let p2 = document.createElement("pre")
+            p2.innerText = error
+            d.appendChild(p2)
+        })
+
+    function sendCommand() {
+        let command = document.getElementById("command_input").value
+        app.sendCommand(command)
+    }
+
+</script>
+</body>
+</html>
