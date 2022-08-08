@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Counter Clerk Test</title>
+    <script src="../../CounterClerk/CounterClerk.js"></script>
+</head>
+<body>
+<h1>Counter Clerk Test</h1>
+<div>
+    <h2>Functional Panel</h2>
+    <div>
+        <button onclick="app.uiKit().alert('1','2')">ALERT</button>
+    </div>
+</div>
+<div>
+    <h2>Transactions</h2>
+    <div id="history">
+
+    </div>
+    <div>
+        <label for="command_textarea"></label><textarea id="command_textarea"></textarea>
+        <button onclick="sendCommand()">Send</button>
+    </div>
+</div>
+<script>
+    let app = new CounterClerk()
+    app.xhrKit().get("http://localhost:8000/testGet")
+        .then(resp => {
+            console.log("get resp", resp)
+        })
+        .catch(error => {
+            console.error("get error", error)
+        })
+    app.xhrKit().getForJson("http://localhost:8000/testGet")
+        .then(resp => {
+            console.log("get for json resp", resp)
+        })
+        .catch(error => {
+            console.error("get for json error", error)
+        })
+    app.xhrKit().postJson("http://localhost:8000/testPost", {"p": "q"})
+        .then(resp => {
+            console.log("post resp", resp)
+        })
+        .catch(error => {
+            console.error("post error", error)
+        })
+    app.xhrKit().postJsonForJson("http://localhost:8000/testPost", {"p": "q"})
+        .then(resp => {
+            console.log("post for json resp", resp)
+        })
+        .catch(error => {
+            console.error("post for json error", error)
+        })
+
+    function sendCommand(){
+        let command_textarea=document.getElementById("command_textarea")
+        let command=command_textarea.value
+
+        console.log("sendCommand",command)
+
+        let history=document.getElementById("history");
+
+        let d=document.createElement("div");
+        let p1=document.createElement("p")
+        p1.innerText=new Date().toLocaleString()+" sent"
+        d.appendChild(p1)
+        let p2=document.createElement("p")
+        p2.innerText=command
+        d.appendChild(p2)
+
+        history.appendChild(d)
+
+        app.xhrKit().postJsonForJson("http://localhost:8000/test1",{"command":command})
+            .then(resp=>{
+                let p3=document.createElement("p")
+                p3.innerText=new Date().toLocaleString()+" received, status code was "+resp.getStatusCode()
+                d.appendChild(p3)
+                let p4=document.createElement("p")
+                p4.innerText=resp.getResponseText()
+                d.appendChild(p4)
+            })
+            .catch(error=>{
+                let p3=document.createElement("p")
+                p3.innerText=new Date().toLocaleString()+" error"
+                d.appendChild(p3)
+                let p4=document.createElement("p")
+                p4.innerText=error
+                d.appendChild(p4)
+            })
+    }
+</script>
+</body>
+</html>
