@@ -269,4 +269,125 @@ class CounterClerk extends CounterClerkCore {
     __show_command_error(context, error) {
         this.__show_command_error_function.call(this, context, error)
     }
+
+    /**
+     *
+     * @param boxElement Element
+     * @param anything
+     * @since 0.1.1
+     */
+    static renderAnything(boxElement, anything) {
+        const d = document.createElement("div")
+        d.className = "counter-clerk-render-entry"
+        if (typeof (anything) === 'undefined') {
+            //d.innerText = '[undefined]';
+            CounterClerk.__renderExpression(d, '[undefined]')
+        } else if (typeof (anything) === 'object') {
+            if (anything == null) {
+                //d.innerText = '[null]';
+                CounterClerk.__renderExpression(d, '[null]')
+            } else if (Array.isArray(anything)) {
+                CounterClerk.__renderArray(d, anything)
+            } else {
+                CounterClerk.__renderObject(d, anything)
+            }
+        } else {
+            //d.innerText = anything
+            CounterClerk.__renderExpression(d, anything)
+        }
+        console.log("renderAnything", boxElement, anything, d)
+        boxElement.appendChild(d)
+    }
+
+    /**
+     *
+     * @param boxElement Element
+     * @param object object
+     * @since 0.1.1
+     */
+    static __renderObject(boxElement, object) {
+        //const entriesDiv = document.createElement("div")
+        //entriesDiv.className="counter-clerk-render-entry"
+
+        for (let key in object) {
+            if (object.hasOwnProperty(key)) {
+                const entryDiv = document.createElement("div")
+                entryDiv.className = "counter-clerk-render-entry"
+
+                const keyDiv = document.createElement("div")
+                keyDiv.className = "counter-clerk-render-entry-inline"
+                keyDiv.innerText = key
+                const valueDiv = document.createElement("div")
+                valueDiv.className = "counter-clerk-render-entry-inline"
+                const value = object[key]
+                if (typeof (value) === 'undefined') {
+                    //valueDiv.innerText = '[undefined]';
+                    CounterClerk.__renderExpression(valueDiv, '[undefined]')
+                } else if (typeof (value) === 'object') {
+                    if (value == null) {
+                        //valueDiv.innerText = '[null]';
+                        CounterClerk.__renderExpression(valueDiv, '[null]')
+                    } else if (Array.isArray(value)) {
+                        CounterClerk.__renderArray(valueDiv, value)
+                    } else {
+                        CounterClerk.__renderObject(valueDiv, value)
+                    }
+                } else {
+                    //valueDiv.innerText = value
+                    CounterClerk.__renderExpression(valueDiv, value)
+                }
+
+                entryDiv.appendChild(keyDiv)
+                entryDiv.appendChild(valueDiv)
+
+                //entriesDiv.appendChild(entryDiv)
+                boxElement.appendChild(entryDiv)
+            }
+        }
+
+        //boxElement.appendChild(entriesDiv)
+    }
+
+    /**
+     *
+     * @param boxElement Element
+     * @param array Array
+     * @since 0.1.1
+     */
+    static __renderArray(boxElement, array) {
+        //const entriesDiv = document.createElement("div")
+        //entriesDiv.className="counter-clerk-render-entry"
+        for (let value in array) {
+            const valueDiv = document.createElement("div")
+            valueDiv.className = "counter-clerk-render-entry"
+
+            if (typeof (value) === 'undefined') {
+                //valueDiv.innerText = '[undefined]';
+                CounterClerk.__renderExpression(valueDiv, '[undefined]')
+            } else if (typeof (value) === 'object') {
+                if (value == null) {
+                    //valueDiv.innerText = '[null]';
+                    CounterClerk.__renderExpression(valueDiv, '[null]')
+                } else if (Array.isArray(value)) {
+                    CounterClerk.__renderArray(valueDiv, value)
+                } else {
+                    CounterClerk.__renderObject(valueDiv, value)
+                }
+            } else {
+                CounterClerk.__renderExpression(valueDiv, value)
+                //valueDiv.innerText = value
+            }
+
+            //entriesDiv.appendChild(valueDiv)
+            boxElement.appendChild(valueDiv)
+        }
+
+        //boxElement.appendChild(entriesDiv)
+    }
+
+    static __renderExpression(boxElement, expression) {
+        let x = document.createElement("pre")
+        x.innerText = expression
+        boxElement.append(x)
+    }
 }
