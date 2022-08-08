@@ -150,46 +150,76 @@ class CounterClerkOptions {
 }
 
 class CounterClerkForUI {
-    constructor() {
+    constructor(boxID) {
+        this.__box=document.getElementById(boxID)
+        this.__headerDiv = document.createElement("div")
+        this.__historyDiv=document.createElement("div")
+        this.__commandDiv=document.createElement("div")
+
+        this.__headerDivRender=function (headerDiv){
+            let h1=document.createElement("h1")
+            h1.innerText="Counter Clerk"
+            headerDiv.appendChild(h1)
+        }
+
+        this.__commandHandler=function (command){
+            return new Promise((resolve,reject)=>{
+                reject("TODO")
+            })
+        }
+
+        this.__commandSentHandler=function (){
+
+        }
     }
 
-    alert(message, title) {
-        let modal = document.createElement("div");
-        modal.style.position = "absolute"
-        modal.style.top = "50px"
-        modal.style.width = "200px"
+    /**
+     *
+     * @param headerDivRender function(headerDiv)
+     */
+    setHeaderDivRender(headerDivRender){
+        this.__headerDivRender=headerDivRender
+    }
 
-        if (!title) {
-            title = "ALERT"
-        }
-        let titleP = document.createElement("p");
-        titleP.innerText = title
-        modal.appendChild(titleP)
+    /**
+     *
+     * @param commandHandler function (command) : resp
+     */
+    setCommandHandler(commandHandler){
+        this.__commandHandler=commandHandler
+    }
 
-        let messageP = document.createElement("p");
-        messageP.innerText = message
-        modal.appendChild(messageP)
 
-        let footerDiv = document.createElement("div");
-        modal.appendChild(footerDiv)
 
-        let closeButton = document.createElement("button")
-        closeButton.innerText = "Close"
-        closeButton.addEventListener("click", function () {
-            modal.style.display = "none"
-            modal.remove()
-            modal = null
+    init(){
+        this.__headerDivRender.call(null,this.__headerDiv)
+
+
+        let command_input=document.createElement("input")
+        command_input.placeholder="command"
+        this.__commandDiv.appendChild(command_input)
+
+        let command_send_button=document.createElement("button")
+        command_send_button.innerText="send"
+        let that=this
+        command_send_button.addEventListener("click",function (event){
+            that.__commandHandler.call(null,command_input.value)
+                .then(resp=>{
+
+                })
+                .catch(error=>{
+
+                })
         })
-        footerDiv.appendChild(closeButton)
 
-        document.getElementsByTagName("body")[0].appendChild(modal)
+        this.__commandDiv.appendChild()
     }
 }
 
 class CounterClerk {
     /**
      * initialize an instance of CounterClerk
-     * @param options CounterClerkOptions
+     * @param options object
      */
     constructor(options) {
         this.__options = new CounterClerkOptions(options)
